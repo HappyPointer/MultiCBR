@@ -1,0 +1,98 @@
+NetEase:
+  data_path: './datasets'
+  batch_size_train: 2048 # the batch size for training
+  batch_size_test: 2048 # the batch size for testing
+  topk: [10, 20, 40, 80] # the topks metrics for evaluation
+  neg_num: 1 # number of negatives used for BPR loss. All the experiments use 1.
+
+  # the following are the best settings
+  aug_type: "Noise" # options: ED, MD, OP, Noise
+  ed_interval: 1 # by how many epochs to dropout edge, default is 1
+  embedding_sizes: [64] # the embedding size for user, bundle, and item
+  num_layerss: [2] # number of layers for the information propagation over all graphs
+
+  # the following dropout rates are with respect to the "aug_type", i.e., if aug_type is ED, the following dropout rates are for ED.
+  UB_ratios: [0.0] # the dropout ratio for UB graph
+  UI_ratios: [0.0] # the dropout ratio for UI graph
+  BI_ratios: [0.2] # the dropout ratio for BI graph
+
+  fusion_weights:
+    # fusion weight for representations of different graphs
+    # From the first element to the third element are weight for UB, UI, BI graphs correspondingly.
+    modal_weight: [0.5, 0.2, 0.3]
+    # layer aggregation weights, the i-th element in the list represents the weight of the (i-1)-th propagation layer.
+    UB_layer: [0.35, 0.15, 0.5] # layer aggregation coefficients in UB graph
+    UI_layer: [0.25, 0.65, 0.1] # layer aggregation coefficients in UI graph
+    BI_layer: [0.4, 0.4, 0.2] # layer aggregation coefficients in BI graph
+
+  lrs: [1.0e-3] # learning rate
+  l2_regs: [1.0e-5] # the l2 regularization weight: lambda_2
+  c_lambdas: [0.05] # the contrastive loss weight: lambda_1
+  c_temps: [0.2] # the temperature in the contrastive loss: tau
+
+  epochs: 50 # number of epochs to train
+  test_interval: 5 # by how many epochs to run the validation and testing.
+
+
+iFashion:
+  data_path: './datasets'
+  batch_size_train: 2048
+  batch_size_test: 2048
+  topk: [10, 20, 40, 80]
+  neg_num: 1
+
+  # the following are the best settings
+  aug_type: "Noise"
+  ed_interval: 1
+  embedding_sizes: [64]
+  num_layerss: [2]
+
+  UB_ratios: [0.05]
+  UI_ratios: [0.0]
+  BI_ratios: [0.15]
+
+  fusion_weights:
+    modal_weight: [0.1, 0.2, 0.7]
+    UB_layer: [0.5, 0.5, 0.0]
+    UI_layer: [0.3, 0.2, 0.5]
+    BI_layer: [0.5, 0.5, 0.0]
+
+  lrs: [1.0e-3]
+  l2_regs: [1.0e-5]
+  c_lambdas: [0.1]
+  c_temps: [0.2]
+
+  epochs: 50
+  test_interval: 5 
+
+
+Youshu:
+  data_path: './datasets'
+  batch_size_train: 2048
+  batch_size_test: 2048
+  topk: [10, 20, 40, 80]
+  neg_num: 1
+
+  # the following are the best settings
+  aug_type: "Noise"
+  ed_interval: 1
+  embedding_sizes: [64]
+  num_layerss: [2]
+
+  UB_ratios: [0.2]
+  UI_ratios: [0.1]
+  BI_ratios: [0.1]
+
+  fusion_weights:
+    modal_weight: [0.35, 0.15, 0.5]
+    UB_layer: [0.7, 0.2, 0.1]
+    UI_layer: [0.6, 0.2, 0.2]
+    BI_layer: [0.6, 0.1, 0.3]
+
+  lrs: [1.0e-3]
+  l2_regs: [1.0e-5]
+  c_lambdas: [0.04]
+  c_temps: [0.23]
+
+  epochs: 100
+  test_interval: 5
